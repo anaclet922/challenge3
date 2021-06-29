@@ -38,11 +38,23 @@ class Image extends BaseController
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $images = curl_exec($ch);
         curl_close($ch);
+        
+        $response = array();
+
+        //Filter Only Title and ThumbnailUrl
+        foreach (json_decode($images, true) as $image) {
+            $n = array(
+                'title' => $image['title'],
+                'thumbnailUrl' => $image['thumbnailUrl']
+            );
+            array_push($response, $image);
+        }
+
 
         return $this->getResponse(
             [
                 'message' => 'Album images retrieved successfully!',
-                'images' => json_decode($images, true)
+                'images' => $response
             ]
         );
     }
