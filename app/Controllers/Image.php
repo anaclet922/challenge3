@@ -4,7 +4,7 @@
 namespace App\Controllers;
 
 
-use App\Models\ImageModel;
+// use App\Models\ImageModel;
 use CodeIgniter\HTTP\Response;
 use CodeIgniter\HTTP\ResponseInterface;
 use Exception;
