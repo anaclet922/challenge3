@@ -21,13 +21,29 @@ class Image extends BaseController
      * @return Response
      */
     public function getAlbum(){
+        
         $albumId = $_GET['album_id'];
-        $model = new ImageModel();
-        $images = $model->where('AlbumId', $albumId)->findAll();
+
+        # ###### If databse used is mine this will work #########
+       
+        // $model = new ImageModel();
+        // $images = json_encode($model->where('AlbumId', $albumId)->findAll());
+
+
+        ######### Call from placeholder's endpoint using cURL ###########
+        
+        $url = "https://jsonplaceholder.typicode.com/albums/" . $albumId . "/photos";
+
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $images = curl_exec($ch);
+        curl_close($ch);
+
         return $this->getResponse(
             [
                 'message' => 'Album images retrieved successfully!',
-                'images' => $images
+                'images' => json_decode($images, true)
             ]
         );
     }
