@@ -47,7 +47,7 @@ class Image extends BaseController
                 'title' => $image['title'],
                 'thumbnailUrl' => $image['thumbnailUrl']
             );
-            array_push($response, $image);
+            array_push($response, $n);
         }
 
 
